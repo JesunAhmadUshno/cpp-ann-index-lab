@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test-smoke:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build (gcc, C++20, warnings on)
+        run: cmake --build build -j4
+      - name: Unit tests
+        run: ./build/ann_tests
+      - name: Smoke benchmark (small synthetic slice)
+        run: ./build/ann_bench --synthetic --out results/smoke.json
