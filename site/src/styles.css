@@ -1,0 +1,152 @@
+:root {
+  --bg: #0d1420;
+  --surface: rgba(22, 31, 46, 0.9);
+  --surface-strong: #18233a;
+  --border: rgba(220, 230, 245, 0.12);
+  --text: #e7edf7;
+  --muted: #9aa8bf;
+  --primary: #6d95ff;
+  --primary-strong: #8fb0ff;
+  --primary-pale: rgba(109, 149, 255, 0.14);
+  --good: #4fcf95;
+  --good-bg: rgba(79, 207, 149, 0.12);
+  --warn: #f0b84a;
+  --warn-bg: rgba(240, 184, 74, 0.12);
+  --bad: #ff7a7a;
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --grid: rgba(220, 230, 245, 0.1);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: linear-gradient(180deg, #101a2c 0%, var(--bg) 42%, var(--bg) 100%);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--primary); }
+code {
+  background: var(--primary-pale);
+  color: var(--primary-strong);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.86em;
+}
+
+.page { max-width: 1120px; margin: 0 auto; padding: 0 24px 64px; }
+
+nav.top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0 8px;
+}
+nav.top .brand { font-weight: 800; letter-spacing: -0.03em; text-decoration: none; color: var(--text); font-size: 18px; }
+nav.top .links { display: flex; gap: 4px; }
+nav.top .links a {
+  color: var(--muted); text-decoration: none; padding: 6px 12px;
+  border-radius: var(--radius-pill); font-weight: 500; font-size: 13px;
+}
+nav.top .links a:hover { color: var(--text); background: var(--surface); }
+
+.hero { padding: 40px 0 8px; }
+.kicker {
+  text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px;
+  font-weight: 700; color: var(--primary-strong); margin: 0 0 12px;
+}
+.hero h1 { font-size: 44px; letter-spacing: -0.03em; margin: 0 0 14px; }
+.question { font-size: 20px; line-height: 1.5; font-weight: 600; margin: 0 0 14px; max-width: 860px; }
+.sub { color: var(--muted); line-height: 1.65; max-width: 860px; margin: 0; }
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px; margin: 28px 0 8px;
+}
+.fact {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.fact-k { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; }
+.fact-v { font-size: 14px; font-weight: 500; line-height: 1.45; }
+
+.section-title { font-size: 24px; letter-spacing: -0.02em; margin: 44px 0 16px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow-soft);
+}
+.card.wide { margin-top: 4px; }
+.card p { color: var(--muted); line-height: 1.6; font-size: 14.5px; }
+.card p.big {
+  color: var(--text); font-family: 'JetBrains Mono', monospace;
+  font-size: 19px; font-weight: 500; margin: 14px 0 6px;
+}
+.verdict header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.verdict h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.4; }
+.tag { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--primary-strong); font-size: 14px; }
+.pill {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  padding: 4px 12px; border-radius: var(--radius-pill);
+}
+.pill.good { color: var(--good); background: var(--good-bg); }
+.pill.warn { color: var(--warn); background: var(--warn-bg); }
+
+.chart-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 18px 12px 10px; margin: 0;
+  box-shadow: var(--shadow-soft);
+}
+.chart-card svg { width: 100%; height: auto; display: block; }
+.chart-card .grid { stroke: var(--grid); stroke-width: 1; }
+.chart-card .axis { fill: var(--muted); font-size: 12px; font-family: 'Inter', sans-serif; }
+.chart-card .rule-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 6 4; }
+.chart-card .rule-label { fill: var(--warn); }
+.pt-ivf { fill: var(--primary); opacity: 0.85; }
+.pt-ivf.tuned { fill: var(--primary); stroke: var(--warn); stroke-width: 2.4; }
+.pt-hnsw { fill: var(--good); opacity: 0.85; }
+.pt-brute { fill: var(--bad); }
+.legend {
+  display: flex; flex-wrap: wrap; gap: 18px; padding: 10px 14px 8px;
+  color: var(--muted); font-size: 13px;
+}
+.legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+.legend .dot.ivf { background: var(--primary); }
+.legend .dot.hnsw { background: var(--good); border-radius: 2px; transform: rotate(45deg); }
+.legend .dot.brute { background: var(--bad); }
+.legend .dot.tuned-ring { background: transparent; border: 2px solid var(--warn); }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 10px 14px; text-align: right; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th {
+  color: var(--muted); font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.08em; border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid rgba(220, 230, 245, 0.05); }
+tbody tr:last-child { border-bottom: none; }
+tbody td { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
+tbody td:first-child { font-family: 'Inter', sans-serif; }
+tr.hl td { background: rgba(240, 184, 74, 0.08); }
+
+.note { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 12px 2px 0; max-width: 900px; }
+
+footer {
+  margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 14px; line-height: 1.65;
+}
+footer p { max-width: 900px; }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .question { font-size: 17px; }
+}

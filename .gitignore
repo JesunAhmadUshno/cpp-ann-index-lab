@@ -3,3 +3,6 @@ data/*.f32
 data/*.bin
 __pycache__/
 *.pyc
+site/node_modules/
+site/dist/
+site/src/data.json
