@@ -1,5 +1,12 @@
+/* Hallmark · v2.0.0 · floor audit 2026-11-15 · existing page: Floor items only, data, copy and structure untouched */
+/* Hallmark · pre-emit critique: P3 H4 E4 S4 R5 V3 · weakest: V, one of six sibling dashboards on a shared house pattern; this pass standardises tokens, focus and motion only */
 :root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --bg: #0d1420;
+  --bg-top: #101a2c;
+  --row-line: rgba(220, 230, 245, 0.05);
+  --hl-bg: rgba(240, 184, 74, 0.08);
   --surface: rgba(22, 31, 46, 0.9);
   --surface-strong: #18233a;
   --border: rgba(220, 230, 245, 0.12);
@@ -24,21 +31,24 @@
 
 * { box-sizing: border-box; }
 
+html, body { overflow-x: clip; }
+
 body {
   margin: 0;
   color: var(--text);
-  background: linear-gradient(180deg, #101a2c 0%, var(--bg) 42%, var(--bg) 100%);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg) 42%, var(--bg) 100%);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 a { color: var(--primary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 code {
   background: var(--primary-pale);
   color: var(--primary-strong);
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.86em;
 }
 
@@ -87,12 +97,12 @@ nav.top .links a:hover { color: var(--text); background: var(--surface); }
 .card.wide { margin-top: 4px; }
 .card p { color: var(--muted); line-height: 1.6; font-size: 14.5px; }
 .card p.big {
-  color: var(--text); font-family: 'JetBrains Mono', monospace;
+  color: var(--text); font-family: var(--font-mono);
   font-size: 19px; font-weight: 500; margin: 14px 0 6px;
 }
 .verdict header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .verdict h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.4; }
-.tag { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--primary-strong); font-size: 14px; }
+.tag { font-family: var(--font-mono); font-weight: 500; color: var(--primary-strong); font-size: 14px; }
 .pill {
   font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
   padding: 4px 12px; border-radius: var(--radius-pill);
@@ -107,7 +117,7 @@ nav.top .links a:hover { color: var(--text); background: var(--surface); }
 }
 .chart-card svg { width: 100%; height: auto; display: block; }
 .chart-card .grid { stroke: var(--grid); stroke-width: 1; }
-.chart-card .axis { fill: var(--muted); font-size: 12px; font-family: 'Inter', sans-serif; }
+.chart-card .axis { fill: var(--muted); font-size: 12px; font-family: var(--font-sans); }
 .chart-card .rule-line { stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 6 4; }
 .chart-card .rule-label { fill: var(--warn); }
 .pt-ivf { fill: var(--primary); opacity: 0.85; }
@@ -132,11 +142,11 @@ thead th {
   color: var(--muted); font-size: 12px; text-transform: uppercase;
   letter-spacing: 0.08em; border-bottom: 1px solid var(--border);
 }
-tbody tr { border-bottom: 1px solid rgba(220, 230, 245, 0.05); }
+tbody tr { border-bottom: 1px solid var(--row-line); }
 tbody tr:last-child { border-bottom: none; }
-tbody td { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; }
-tbody td:first-child { font-family: 'Inter', sans-serif; }
-tr.hl td { background: rgba(240, 184, 74, 0.08); }
+tbody td { font-family: var(--font-mono); font-size: 13.5px; }
+tbody td:first-child { font-family: var(--font-sans); }
+tr.hl td { background: var(--hl-bg); }
 
 .note { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 12px 2px 0; max-width: 900px; }
 
@@ -149,4 +159,8 @@ footer p { max-width: 900px; }
 @media (max-width: 640px) {
   .hero h1 { font-size: 32px; }
   .question { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
