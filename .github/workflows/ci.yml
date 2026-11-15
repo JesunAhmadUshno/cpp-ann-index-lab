@@ -18,3 +18,12 @@ jobs:
         run: ./build/ann_tests
       - name: Smoke benchmark (small synthetic slice)
         run: ./build/ann_bench --synthetic --out results/smoke.json
+      - name: CLI smoke (demo data, graph and IVF queries)
+        run: |
+          python3 tools/make_demo_data.py --out-dir build/demo
+          ./build/ann_query --corpus build/demo/corpus.f32 \
+              --queries build/demo/queries.f32 --n 2000 --d 64 --nq 8 \
+              --index graph --m 16 --ef 64
+          ./build/ann_query --corpus build/demo/corpus.f32 \
+              --queries build/demo/queries.f32 --n 2000 --d 64 --nq 8 \
+              --index ivf --nlist 32 --nprobe 8

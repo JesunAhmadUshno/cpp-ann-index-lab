@@ -16,6 +16,12 @@ target_compile_options(ann INTERFACE -O3 -Wall -Wextra)
 add_executable(ann_bench src/ann_bench.cpp)
 target_link_libraries(ann_bench PRIVATE ann)
 
+add_executable(ann_query src/ann_query.cpp)
+target_link_libraries(ann_query PRIVATE ann)
+
+install(TARGETS ann_query ann_bench RUNTIME DESTINATION bin)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ann DESTINATION include)
+
 enable_testing()
 add_executable(ann_tests tests/test_ann.cpp)
 target_link_libraries(ann_tests PRIVATE ann)
