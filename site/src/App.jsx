@@ -348,6 +348,10 @@ export default function App() {
           <a href={REPO}>JesunAhmadUshno/cpp-ann-index-lab</a>. Protocol frozen in advance in{' '}
           <a href={`${REPO}/blob/main/PREREGISTRATION.md`}>PREREGISTRATION.md</a>.
         </p>
+        <p className="support">
+          <a href="https://github.com/sponsors/JesunAhmadUshno">Sponsor this work</a>
+          <a href="https://calendly.com/jesunahmadushno/30min">Work with me</a>
+        </p>
       </footer>
     </div>
   );
