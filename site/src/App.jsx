@@ -103,6 +103,81 @@ function VerdictCard({ tag, title, verdict, children }) {
   );
 }
 
+function Diagrams() {
+  const e = data.env;
+  const steps = [
+    `Held-out query (one of ${e.nQueries})`,
+    'Search one frozen cell (IVF, graph or brute force)',
+    'Top-10 neighbours returned',
+    'Timed: p50 and p99 latency recorded',
+    'Score recall@10 against ground truth',
+    'Append to the run record (run_full.json)',
+  ];
+  return (
+    <>
+      <h2 className="section-title">How the study is built</h2>
+      <section className="diagrams">
+        <div className="diagram-card">
+          <h3>Structure: one corpus, three indexes</h3>
+          <svg viewBox="0 0 520 256" role="img" aria-label="Structure diagram: the corpus is embedded once, three indexes are built over the same vectors, and one evaluator scores all three against exact ground truth">
+            <defs>
+              <marker id="arrS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)" />
+              </marker>
+            </defs>
+            <path className="d-arrow" d="M 112 128 L 132 128" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 254 110 L 274 36" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 254 128 L 274 128" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 254 146 L 274 220" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 398 36 L 418 108" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 398 128 L 418 128" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 398 220 L 418 148" markerEnd="url(#arrS)" />
+            <path className="d-arrow" d="M 467 196 L 467 160" markerEnd="url(#arrS)" />
+            <rect className="d-box" x="8" y="100" width="104" height="56" rx="10" />
+            <text className="d-label" x="20" y="124">Corpus</text>
+            <text className="d-sub" x="20" y="142">{e.n.toLocaleString('en-US')} chunks</text>
+            <rect className="d-box" x="136" y="100" width="118" height="56" rx="10" />
+            <text className="d-label" x="148" y="124">Embeddings</text>
+            <text className="d-sub" x="148" y="142">model2vec, {e.dim} dim</text>
+            <rect className="d-box" x="278" y="12" width="120" height="44" rx="10" />
+            <text className="d-label" x="290" y="32">IVF index</text>
+            <text className="d-sub" x="290" y="48">nlist, nprobe cells</text>
+            <rect className="d-box" x="278" y="106" width="120" height="44" rx="10" />
+            <text className="d-label" x="290" y="126">Graph index</text>
+            <text className="d-sub" x="290" y="142">HNSW style, M, ef</text>
+            <rect className="d-box" x="278" y="200" width="120" height="44" rx="10" />
+            <text className="d-label" x="290" y="220">Brute force</text>
+            <text className="d-sub" x="290" y="236">exact scan</text>
+            <rect className="d-box-accent" x="422" y="100" width="90" height="56" rx="10" />
+            <text className="d-label" x="432" y="124">Evaluator</text>
+            <text className="d-sub" x="432" y="142">recall@10</text>
+            <rect className="d-box" x="422" y="200" width="90" height="44" rx="10" />
+            <text className="d-label" x="432" y="220">Ground truth</text>
+            <text className="d-sub" x="432" y="236">exact top-10</text>
+          </svg>
+        </div>
+        <div className="diagram-card">
+          <h3>Flow: one query, start to finish</h3>
+          <svg viewBox="0 0 520 256" role="img" aria-label="Flow diagram: a held-out query is searched against one frozen cell, its top-10 neighbours are timed, scored against ground truth, and appended to the run record">
+            <defs>
+              <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)" />
+              </marker>
+            </defs>
+            {steps.map((s, i) => (
+              <g key={s}>
+                {i > 0 && <path className="d-arrow" d={`M 260 ${i * 44 - 12} L 260 ${i * 44 - 2}`} markerEnd="url(#arrF)" />}
+                <rect className={i === 4 ? 'd-box-accent' : 'd-box'} x="110" y={i * 44} width="300" height="32" rx="10" />
+                <text className="d-label" x="260" y={i * 44 + 20} textAnchor="middle">{s}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export default function App() {
   const d = data;
   const h1Best = d.h1.passing[0];
@@ -145,6 +220,8 @@ export default function App() {
           </div>
         ))}
       </section>
+
+      <Diagrams />
 
       <h2 className="section-title">Verdicts, by the frozen rules</h2>
       <section className="cards">
